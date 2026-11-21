@@ -57,7 +57,18 @@ docker compose exec db psql -U finance -d finance_db -f /queries.sql
 ```
 
 SEC requires a contact e-mail in the `User-Agent` header; it is only sent with the API requests and is not stored anywhere.
-Without internet access you can try the queries on fictional data: `docker compose exec -T db psql -U finance -d finance_db < sample_data_fictional.sql`.
+
+Without internet access you can try the queries on fictional data (use a fresh database, instead of loading real data):
+
+```bash
+# bash
+docker compose exec -T db psql -U finance -d finance_db < sample_data_fictional.sql
+```
+
+```powershell
+# PowerShell
+Get-Content sample_data_fictional.sql | docker compose exec -T db psql -U finance -d finance_db
+```
 
 ## What is in the repo
 

@@ -3,6 +3,7 @@
 A small analytics database built from **real SEC EDGAR filings** (Form 10-K, XBRL API) for 10 US healthcare companies. It covers schema design, an automated data loader, and SQL analysis with window functions, CTEs and a reporting view.
 
 **Companies:** Pfizer, Merck, Eli Lilly, AbbVie, Bristol-Myers Squibb, Johnson & Johnson (pharma/biotech), Abbott, Medtronic (medical devices), UnitedHealth Group, CVS Health (services & insurance).
+
 **Period:** fiscal years 2019-2025 (Medtronic through FY2026; J&J from 2021, see [Data notes](#data-notes)). Amounts are in USD millions.
 
 ## Data model
@@ -104,7 +105,7 @@ Other observations from the queries:
 - **Fiscal years.** The year is the year in which the fiscal period ends. Medtronic's year ends in April, so it has FY2026. J&J uses a 52/53-week year; period ends in early January are assigned to the previous year.
 - **Johnson & Johnson** starts in 2021: earlier revenue includes the consumer business that was later spun off, so it is not comparable. Its R&D values are excluded because the automatically selected XBRL tag was unreliable. Both rules are in `COMPANIES` in `load_edgar.py`.
 - **Tags.** Companies change XBRL tags over time, so the loader merges several tags per metric in priority order. If total liabilities are not reported, they are computed as assets minus equity.
-- Liabilities-to-equity uses total liabilities, not only debt. UnitedHealth and CVS do not report R&D.
+- Liabilities-to-equity uses total liabilities, not only debt. No R&D tag was found for UnitedHealth and CVS, so their R&D is left empty.
 - The sample is 10 companies and is not representative of the whole sector.
 
 *Educational project. Data comes from public SEC filings; nothing here is investment advice.*
